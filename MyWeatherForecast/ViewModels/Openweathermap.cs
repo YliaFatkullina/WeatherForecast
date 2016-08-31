@@ -1,9 +1,9 @@
 ﻿using System;
 
-namespace MyWeatherForecast.Models
+namespace MyWeatherForecast.ViewModels
 {
 
-    public class OpenweathermapWeather : Weather
+    public class Openweathermap : Weather
     {
         private string imgPath = @"http://openweathermap.org/img/w/{0}.png";
         private readonly string _forecastProvider = "OpenweatherMap.org";

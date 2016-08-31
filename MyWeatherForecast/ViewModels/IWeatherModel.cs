@@ -1,4 +1,4 @@
-﻿namespace MyWeatherForecast.Models
+﻿namespace MyWeatherForecast.ViewModels
 {
     public interface IWeatherModel
     {

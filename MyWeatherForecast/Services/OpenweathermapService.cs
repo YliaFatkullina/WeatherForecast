@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Dynamic;
 using System.Net;
-using MyWeatherForecast.Models;
+using MyWeatherForecast.ViewModels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using NLog;
@@ -38,7 +38,10 @@ namespace MyWeatherForecast.Services
 
                     dynamic jsonResult = JsonConvert.DeserializeObject<ExpandoObject>(json, new ExpandoObjectConverter());
 
-                    weather = new OpenweathermapWeather();
+                    if (jsonResult.cod.ToString() == "404")
+                        return null;
+
+                    weather = new Openweathermap();
                     weather.Create(jsonResult);
 
                 }

@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NLog;
 
-namespace MyWeatherForecast.Models
+namespace MyWeatherForecast.ViewModels
 {
     public abstract class Weather : IWeatherModel
     {

@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace MyWeatherForecast.Models
+namespace MyWeatherForecast.ViewModels
 {
-    public class WundergroundWeather : Weather
+    public class Wunderground : Weather
     {
         private readonly string _forecastProvider = "WunderGround.com";
 

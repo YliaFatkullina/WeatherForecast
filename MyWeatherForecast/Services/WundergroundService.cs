@@ -3,7 +3,7 @@ using System.Dynamic;
 using System.Net;
 using System.Text;
 using System.Web;
-using MyWeatherForecast.Models;
+using MyWeatherForecast.ViewModels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using NLog;
@@ -23,9 +23,18 @@ namespace MyWeatherForecast.Services
 
         public IWeatherModel GetForecast(string cityName)
         {
-            _url = string.Format(_url, _apiKey, cityName);
+            _url = string.Format(_url, _apiKey, FirstLetterToUpper(cityName));
 
             return GetForecastInternal(_url);
+        }
+
+        public static string FirstLetterToUpper(string str)
+        {
+            if (str.Length > 0)
+            {
+                return char.ToUpper(str[0]) + str.Substring(1);
+            }
+            return "";
         }
 
         private static IWeatherModel GetForecastInternal(string url)
@@ -33,7 +42,7 @@ namespace MyWeatherForecast.Services
             if (string.IsNullOrEmpty(url))
                 return null;
 
-            WundergroundWeather weather = null;
+            Wunderground weather = null;
             using (var client = new WebClient())
             {
                 try
@@ -46,7 +55,7 @@ namespace MyWeatherForecast.Services
                     {
                         if (jsonResult.current_observation != null)
                         {
-                            weather = new WundergroundWeather();
+                            weather = new Wunderground();
                             weather.Create(jsonResult);
                             return weather;
                         }

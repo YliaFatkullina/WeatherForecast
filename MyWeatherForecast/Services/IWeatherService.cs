@@ -1,5 +1,5 @@
 ﻿using System.Web;
-using MyWeatherForecast.Models;
+using MyWeatherForecast.ViewModels;
 
 namespace MyWeatherForecast.Services
 {
