@@ -10,18 +10,24 @@ using NLog;
 
 namespace MyWeatherForecast.Services
 {
-    public class WundergroundService : IWeatherService
+    public class WundergroundProvider : IWeatherProvider
     {
+        private readonly string _name = "WunderGround";
         private readonly string _apiKey = "8fa8ff9308bb395e";
-        private string _url = @"http://api.wunderground.com/api/{0}/conditions/lang:RU/q/CA/{1}.json"; 
+        private string _url = @"http://api.wunderground.com/api/{0}/conditions/lang:RU/q/CA/{1}.json";
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        public string Name
+        {
+            get { return _name; }
+        }
 
         public string ApiKey
         {
             get { return _apiKey; }
         }
 
-        public IWeatherModel GetForecast(string cityName)
+        public IWeatherForecast GetForecast(string cityName)
         {
             _url = string.Format(_url, _apiKey, FirstLetterToUpper(cityName));
 
@@ -37,12 +43,11 @@ namespace MyWeatherForecast.Services
             return "";
         }
 
-        private static IWeatherModel GetForecastInternal(string url)
+        private static IWeatherForecast GetForecastInternal(string url)
         {
             if (string.IsNullOrEmpty(url))
                 return null;
 
-            Wunderground weather = null;
             using (var client = new WebClient())
             {
                 try
@@ -50,14 +55,13 @@ namespace MyWeatherForecast.Services
                     var json = client.DownloadString(url);
 
                     dynamic jsonResult = JsonConvert.DeserializeObject<ExpandoObject>(json, new ExpandoObjectConverter());
-                    
+
                     try
                     {
                         if (jsonResult.current_observation != null)
                         {
-                            weather = new Wunderground();
-                            weather.Create(jsonResult);
-                            return weather;
+                            var weather = new Wunderground();
+                            return weather.Create(jsonResult) ? weather : null;
                         }
                     }
                     catch
@@ -67,13 +71,13 @@ namespace MyWeatherForecast.Services
                         return GetForecastInternal(newUrl);
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Logger.Error("\r\n{0}\r\n{1}", ex.Message, ex.StackTrace);
                     Logger.Info("\r\n{0}", url);
                 }
             }
-            return weather;
+            return null;
         }
 
         private static string GetZmw(dynamic jsonResult)
