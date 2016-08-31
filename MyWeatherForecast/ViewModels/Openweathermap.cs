@@ -1,18 +1,18 @@
 ﻿using System;
+using MyWeatherForecast.Services;
 
 namespace MyWeatherForecast.ViewModels
 {
 
-    public class Openweathermap : Weather
+    public class Openweathermap : WeatherForecast
     {
         private string imgPath = @"http://openweathermap.org/img/w/{0}.png";
-        private readonly string _forecastProvider = "OpenweatherMap.org";
 
-        public override void Create(dynamic jsonResult)
+
+        public override bool Create(dynamic jsonResult)
         {
             try
             {
-                ForecastProvider = _forecastProvider;
                 Id = jsonResult.city.id.ToString();
                 City = jsonResult.city.name.ToString();
                 Pressure = jsonResult.list[0].pressure.ToString();
@@ -24,7 +24,9 @@ namespace MyWeatherForecast.ViewModels
             catch (Exception ex)
             {
                 Logger.Error("\r\n{0}\r\n{1}", ex.Message, ex.StackTrace);
+                return false;
             }
+            return true;
         }
     }
 }

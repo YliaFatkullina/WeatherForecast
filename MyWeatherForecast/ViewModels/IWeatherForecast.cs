@@ -1,6 +1,8 @@
-﻿namespace MyWeatherForecast.ViewModels
+﻿using MyWeatherForecast.Services;
+
+namespace MyWeatherForecast.ViewModels
 {
-    public interface IWeatherModel
+    public interface IWeatherForecast
     {
         string Id { get; set; }
 
@@ -18,6 +20,7 @@
 
         string Pressure { get; set; }
 
-        void Create(dynamic json);
+        bool Create(dynamic json);
+
     }
 }

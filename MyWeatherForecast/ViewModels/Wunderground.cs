@@ -2,15 +2,12 @@
 
 namespace MyWeatherForecast.ViewModels
 {
-    public class Wunderground : Weather
+    public class Wunderground : WeatherForecast
     {
-        private readonly string _forecastProvider = "WunderGround.com";
-
-        public override void Create(dynamic json)
+        public override bool Create(dynamic json)
         {
             try
             {
-                ForecastProvider = _forecastProvider;
                 Id = json.current_observation.station_id.ToString();
                 City = json.current_observation.display_location.city.ToString();
                 Pressure = json.current_observation.pressure_mb.ToString();
@@ -22,7 +19,9 @@ namespace MyWeatherForecast.ViewModels
             catch (Exception ex)
             {
                 Logger.Error("\r\n{0}\r\n{1}", ex.Message, ex.StackTrace);
+                return false;
             }
+            return true;
         }
     }
 }

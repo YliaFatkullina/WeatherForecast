@@ -3,11 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyWeatherForecast.Services;
 using NLog;
 
 namespace MyWeatherForecast.ViewModels
 {
-    public abstract class Weather : IWeatherModel
+    public abstract class WeatherForecast : IWeatherForecast
     {
         public string Id { get; set; }
 
@@ -25,9 +26,9 @@ namespace MyWeatherForecast.ViewModels
 
         public string Pressure { get; set; }
 
-        public abstract void Create(dynamic json);
-
         protected static readonly Logger Logger = LogManager.GetCurrentClassLogger();
+
+        public abstract bool Create(dynamic jsonResult);
 
     }
 }
