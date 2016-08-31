@@ -1,0 +1,36 @@
+﻿@using System.Globalization
+@model List<MyWeatherForecast.ViewModels.IWeatherModel>
+
+<div id="WeatherForecast">
+    @if (@Model.Count != 0)
+    {
+        <h2>@ViewData["city"]</h2>
+        var date1 = DateTime.Now.ToString(CultureInfo.InvariantCulture);
+        <h5>@date1</h5>
+
+        foreach (var weather in @Model)
+        {
+            <h5>Информация о погоде по данным сервиса @weather.ForecastProvider</h5>
+            <table>
+                <tr>
+                    <td class="tableheader"></td>
+                    <td class="tableheader">Температура C</td>
+                    <td class="tableheader">Давление, мм</td>
+                    <td class="tableheader">Влажность, %</td>
+                    <td class="tableheader">Скорость ветра, м/s</td>
+                </tr>
+                <tr>
+                    <td><img src=@weather.ImageUrl></td>
+                    <td>@weather.Temperature</td>
+                    <td>@weather.Pressure</td>
+                    <td>@weather.Humidity</td>
+                    <td>@weather.WindSpeed</td>
+                </tr>
+            </table>
+        }
+    }
+    else
+    {
+        <h5>Не найдена информация по городу '@ViewData["city"]'</h5>
+    }
+</div>
