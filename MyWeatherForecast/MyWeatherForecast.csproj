@@ -191,6 +191,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Services\IWeatherProvider.cs" />
     <Compile Include="Services\IWeatherProviders.cs" />
     <Compile Include="Services\OpenweatherMapProvider.cs" />
