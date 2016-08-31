@@ -174,14 +174,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\IWeatherModel.cs" />
-    <Compile Include="ViewModels\Weather.cs" />
+    <Compile Include="Services\IWeatherProvider.cs" />
+    <Compile Include="Services\IWeatherProviders.cs" />
+    <Compile Include="Services\OpenweatherMapProvider.cs" />
+    <Compile Include="Services\WeatherProviders.cs" />
+    <Compile Include="Services\WundergroundProvider.cs" />
+    <Compile Include="ViewModels\IWeatherForecast.cs" />
+    <Compile Include="ViewModels\WeatherForecast.cs" />
     <Compile Include="ViewModels\Openweathermap.cs" />
     <Compile Include="ViewModels\Wunderground.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Services\IWeatherService.cs" />
-    <Compile Include="Services\OpenweathermapService.cs" />
-    <Compile Include="Services\WundergroundService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
