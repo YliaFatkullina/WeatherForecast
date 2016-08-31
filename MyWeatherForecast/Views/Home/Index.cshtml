@@ -24,10 +24,12 @@
             <h5>Последние просмотренные города</h5>
             foreach (var item in citiesCookie.Values)
             {
-                string id = item.ToString();
-                string city = citiesCookie.Values[id];
-                @Ajax.ActionLink(@city, "GetWeatherForecast", "Home", new { cityName = @city }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "resultWeatherForecast" })
-                @Html.Raw("     ");
+                if (item != null)
+                {
+                    string id = item.ToString();string city = citiesCookie.Values[id];
+                    @Ajax.ActionLink(@city, "GetWeatherForecast", "Home", new { cityName = @city }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "resultWeatherForecast" })
+                    @Html.Raw("     ");
+                }
             }
         }
     }
