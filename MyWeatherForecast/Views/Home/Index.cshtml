@@ -1,4 +1,4 @@
-@{
+﻿@{
     ViewBag.Title = "MyWeatherForecast";
 }
 <link rel="stylesheet" href="~/Content/WeatherForecast.css">
@@ -30,7 +30,7 @@
             {
                 if (item != null)
                 {
-                    string id = item.ToString();string city = citiesCookie.Values[id];
+                    string city = citiesCookie.Values[item.ToString()];
                     @Ajax.ActionLink(@city, "GetWeatherForecast", "Home", new { cityName = @city }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "resultWeatherForecast" })
                     @Html.Raw("     ");
                 }

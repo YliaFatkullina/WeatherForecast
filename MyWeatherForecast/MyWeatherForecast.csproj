@@ -192,10 +192,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
+    <Compile Include="Services\Forecasts.cs" />
+    <Compile Include="Services\IForecasts.cs" />
     <Compile Include="Services\IWeatherProvider.cs" />
-    <Compile Include="Services\IWeatherProviders.cs" />
+    <Compile Include="Services\IWeatherService.cs" />
     <Compile Include="Services\OpenweatherMapProvider.cs" />
-    <Compile Include="Services\WeatherProviders.cs" />
+    <Compile Include="Services\WeatherService.cs" />
     <Compile Include="Services\WundergroundProvider.cs" />
     <Compile Include="ViewModels\IWeatherForecast.cs" />
     <Compile Include="ViewModels\WeatherForecast.cs" />
@@ -255,7 +257,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <None Include="Views\Home\WeatherForecastPartial.cshtml" />
+    <None Include="Views\Home\WeatherForecast.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
