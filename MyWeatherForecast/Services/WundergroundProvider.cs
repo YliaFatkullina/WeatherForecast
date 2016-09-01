@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Dynamic;
 using System.Net;
-using System.Text;
-using System.Web;
 using MyWeatherForecast.ViewModels;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
