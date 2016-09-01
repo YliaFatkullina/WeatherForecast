@@ -12,6 +12,7 @@ namespace MyWeatherForecast.ViewModels
                 City = json.current_observation.display_location.city.ToString();
                 Pressure = json.current_observation.pressure_mb.ToString();
                 Humidity = json.current_observation.relative_humidity.ToString();
+                Humidity = Humidity.Replace("%", "");
                 WindSpeed = json.current_observation.wind_mph.ToString();
                 Temperature = json.current_observation.temp_c.ToString();
                 ImageUrl = json.current_observation.icon_url.ToString();
