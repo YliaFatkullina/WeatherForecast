@@ -8,7 +8,7 @@
 <div class="form">
     @using (Ajax.BeginForm("GetWeatherForecast", "Home", new AjaxOptions { UpdateTargetId = "resultWeatherForecast" }, new { @id = "formCity" }))
     {
-        <div class="field">
+        <div class="field1">
             @Html.TextBox("cityName", "", new { id = "city", name = "city", @class = "form-control", placeholder = "Введите название города", required = "true", minlength = "3" })
         </div>
         <div class="button">
