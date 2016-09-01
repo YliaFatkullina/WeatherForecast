@@ -1,14 +1,15 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MyWeatherForecast.ViewModels;
 
 namespace MyWeatherForecast.Services
 {
-    public interface IWeatherProviders
+    public interface IForecasts
     {
-        IDictionary<string, IWeatherProvider> Providers { get; set; }
+        IDictionary<string, IWeatherForecast> GetForecasts(string cityName);
+
     }
 }

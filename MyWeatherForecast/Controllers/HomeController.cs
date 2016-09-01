@@ -10,6 +10,13 @@ namespace MyWeatherForecast.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IForecasts _forecasts;
+
+        public HomeController(IForecasts forecasts)
+        {
+            _forecasts = forecasts;
+        }
+
         public ActionResult Index()
         {
             return View();
@@ -20,40 +27,34 @@ namespace MyWeatherForecast.Controllers
         {
             if(cityName != null)
             {
-                return PartialView("WeatherForecastPartial", SearchCity(cityName.Trim()));
+                return PartialView("WeatherForecast", SearchCity(cityName.Trim()));
             }
-            return PartialView("WeatherForecastPartial");
+            return PartialView("WeatherForecast");
         }
 
         private IDictionary<string, IWeatherForecast> SearchCity(string cityName)
         {
             ViewData["city"] = cityName;
 
-            IWeatherProviders weatherService = new WeatherProviders();
+            var forecasts = _forecasts.GetForecasts(cityName);
 
-            IDictionary<string, IWeatherForecast> forecasts = new Dictionary<string, IWeatherForecast>();
-
-            foreach (var provider in weatherService.Providers)
+            if (forecasts.Count > 0)
             {
-                var forecast = provider.Value.GetForecast(cityName);
-                if (forecast != null)
-                    forecasts.Add(provider.Key, forecast);
-            }
-
-            if (forecasts.Count != 0)
-            {
-                var citiesCookie = Request.Cookies["cities"] ?? new HttpCookie("cities");
                 var firstOrDefault = forecasts.Values.FirstOrDefault();
                 if (firstOrDefault != null)
-                {
-                    var id = firstOrDefault.Id;
-                    citiesCookie[id] = cityName;
-                }
-                citiesCookie.Expires = DateTime.Now.AddDays(1);
-                Response.Cookies.Add(citiesCookie);
+                    AddCityInCookie(firstOrDefault.Id , cityName);
             }
 
             return forecasts;
         }
+
+        private void AddCityInCookie(string id, string cityName)
+        {
+            var citiesCookie = Request.Cookies["cities"] ?? new HttpCookie("cities");
+            citiesCookie[id] = cityName;
+            citiesCookie.Expires = DateTime.Now.AddDays(1);
+            Response.Cookies.Add(citiesCookie);
+        }
+
     }
 }

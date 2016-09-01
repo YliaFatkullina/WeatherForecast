@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 using MyWeatherForecast.Services;
-using MyWeatherForecast.ViewModels;
 using Ninject;
 
 namespace MyWeatherForecast.Infrastructure
@@ -31,9 +28,8 @@ namespace MyWeatherForecast.Infrastructure
 
         private void AddBindings()
         {
-            _kernel.Bind<IWeatherProviders>().To<WeatherProviders>();
-            _kernel.Bind<IWeatherForecast>().To<Openweathermap>();
-            _kernel.Bind<IWeatherForecast>().To<Wunderground>();
+            _kernel.Bind<IForecasts>().To<Forecasts>();
+            _kernel.Bind<IWeatherService>().To<WeatherService>();
         }
     }
 }
