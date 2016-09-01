@@ -1,17 +1,21 @@
-﻿@{
+@{
     ViewBag.Title = "MyWeatherForecast";
 }
 <link rel="stylesheet" href="~/Content/WeatherForecast.css">
 <br />
 <br />
 
-
-@using (Ajax.BeginForm("GetWeatherForecast", "Home", new AjaxOptions { UpdateTargetId = "resultWeatherForecast" }, new { @id = "formCity"}))
-{
-    @Html.TextBox("cityName", "", new { id = "city", name = "city", @class = "form-control", placeholder = "Введите название города", required = "true", minlength = "3" })
-    <button type="submit" id="buttonSearchWeather">Найти</button>
-}
-
+<div class="form">
+    @using (Ajax.BeginForm("GetWeatherForecast", "Home", new AjaxOptions { UpdateTargetId = "resultWeatherForecast" }, new { @id = "formCity" }))
+    {
+        <div class="field">
+            @Html.TextBox("cityName", "", new { id = "city", name = "city", @class = "form-control", placeholder = "Введите название города", required = "true", minlength = "3" })
+        </div>
+        <div class="button">
+            <button type="submit" id="buttonSearchWeather">Найти</button>
+        </div>
+    }
+</div>
 
 <div id="resultWeatherForecast"></div>
 
@@ -20,7 +24,7 @@
         var citiesCookie = Request.Cookies["cities"];
         if (citiesCookie != null)
         {
-            <hr align="left" width="400" />
+            <hr id="lineBeforCookie" align="left" width="400" />
             <h5>Последние просмотренные города</h5>
             foreach (var item in citiesCookie.Values)
             {
