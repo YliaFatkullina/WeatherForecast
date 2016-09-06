@@ -1,5 +1,4 @@
 ﻿using System;
-using MyWeatherForecast.Services;
 
 namespace MyWeatherForecast.ViewModels
 {

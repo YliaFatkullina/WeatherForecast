@@ -1,6 +1,4 @@
-﻿using MyWeatherForecast.Services;
-
-namespace MyWeatherForecast.ViewModels
+﻿namespace MyWeatherForecast.ViewModels
 {
     public interface IWeatherForecast
     {
