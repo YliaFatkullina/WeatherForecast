@@ -21,24 +21,8 @@
 </div>
 
 
-<div id="resultWeatherForecast"></div>
-
-<div>
+<div id="resultWeatherForecast">
     @{
-        var citiesCookie = Request.Cookies["cities"];
-        if (citiesCookie != null)
-        {
-            <hr id="lineBeforCookie" align="left" width="400" />
-            <h5>Последние просмотренные города</h5>
-            foreach (var item in citiesCookie.Values)
-            {
-                if (item != null)
-                {
-                    string city = citiesCookie.Values[item.ToString()];
-                    @Ajax.ActionLink(@city, "GetWeatherForecast", "Home", new { cityName = @city }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "resultWeatherForecast" })
-                    @Html.Raw("     ");
-                }
-            }
-        }
+        Html.RenderPartial("LastViewedCity");
     }
 </div>

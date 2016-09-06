@@ -1,0 +1,20 @@
+﻿<div>
+    @{
+        var citiesCookie = Request.Cookies["cities"];
+        if (citiesCookie != null)
+        {
+            <hr id="lineBeforCookie" align="left" width="400" />
+            <h5>Последние просмотренные города</h5>
+            foreach (var item in citiesCookie.Values.AllKeys)
+            {
+                if (item != null)
+                {
+                    string city = citiesCookie.Values[item];
+                    @Ajax.ActionLink(@city, "GetWeatherForecast", "Home", new { cityName = @city }, new AjaxOptions { HttpMethod = "Post", UpdateTargetId = "resultWeatherForecast" })
+                    @Html.Raw("     ")
+                }
+            }
+        }
+    }
+</div>
+

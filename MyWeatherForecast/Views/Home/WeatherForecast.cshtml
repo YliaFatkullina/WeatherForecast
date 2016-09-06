@@ -1,37 +1,47 @@
 ﻿@using System.Globalization
-@model IDictionary<string,MyWeatherForecast.ViewModels.IWeatherForecast>
+@model IDictionary<string, MyWeatherForecast.ViewModels.IWeatherForecast>
 
 <div id="WeatherForecast">
-    @if (@Model.Count != 0)
+    @if (@Model != null)
     {
-        <h2 class="WeatherForecast">@ViewData["city"]</h2>
-        var date1 = DateTime.Now.ToString(CultureInfo.InvariantCulture);
-        <h5 class="WeatherForecast">@date1</h5>
+        if (@Model.Count != 0)
+        {
+            <h2 class="WeatherForecast">@ViewData["city"]</h2>
+            var date1 = DateTime.Now.ToString(CultureInfo.InvariantCulture);
+            <h5 class="WeatherForecast">@date1</h5>
 
-        <table class="WeatherForecast">
-            <tr>
-                <th class="WeatherForecast">Сервис погоды</th>
-                <th class="WeatherForecast"></th>
-                <th class="WeatherForecast">Температура, C</th>
-                <th class="WeatherForecast">Давление, гПа</th>
-                <th class="WeatherForecast">Влажность, %</th>
-                <th class ="WeatherForecast">Скорость ветра, м/с</th>
-            </tr>
-            @foreach (var weather in @Model)
-            {
+            <table class="WeatherForecast">
                 <tr>
-                    <td class="WeatherForecast">@weather.Key</td>
-                    <td class="WeatherForecast"><img src=@weather.Value.ImageUrl></td>
-                    <td class="WeatherForecast">@weather.Value.Temperature</td>
-                    <td class="WeatherForecast">@weather.Value.Pressure</td>
-                    <td class="WeatherForecast">@weather.Value.Humidity</td>
-                    <td class="WeatherForecast">@weather.Value.WindSpeed</td>
+                    <th class="WeatherForecast">Сервис погоды</th>
+                    <th class="WeatherForecast"></th>
+                    <th class="WeatherForecast">Температура, C</th>
+                    <th class="WeatherForecast">Давление, гПа</th>
+                    <th class="WeatherForecast">Влажность, %</th>
+                    <th class="WeatherForecast">Скорость ветра, м/с</th>
                 </tr>
-            }
-        </table>
-    }
-    else
-    {
-        <h5>Не найдена информация по городу '@ViewData["city"]'</h5>
+                @foreach (var weather in @Model)
+                {
+                    <tr>
+                        <td class="WeatherForecast">@weather.Key</td>
+                        <td class="WeatherForecast"><img src=@weather.Value.ImageUrl></td>
+                        <td class="WeatherForecast">@weather.Value.Temperature</td>
+                        <td class="WeatherForecast">@weather.Value.Pressure</td>
+                        <td class="WeatherForecast">@weather.Value.Humidity</td>
+                        <td class="WeatherForecast">@weather.Value.WindSpeed</td>
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <h5>Не найдена информация по городу '@ViewData["city"]'</h5>
+        }
     }
 </div>
+
+<div>
+    @{
+        Html.RenderPartial("LastViewedCity");
+    }
+</div>
+
