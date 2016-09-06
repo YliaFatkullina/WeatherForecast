@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using System.Web.Mvc;
 using MyWeatherForecast.Services;
 using MyWeatherForecast.ViewModels;
@@ -11,10 +8,12 @@ namespace MyWeatherForecast.Controllers
     public class HomeController : Controller
     {
         private readonly IForecasts _forecasts;
+        private readonly ICookieManager _cookie;
 
-        public HomeController(IForecasts forecasts)
+        public HomeController(IForecasts forecasts, ICookieManager cookie)
         {
             _forecasts = forecasts;
+            _cookie = cookie;
         }
 
         public ActionResult Index()
@@ -38,22 +37,9 @@ namespace MyWeatherForecast.Controllers
 
             var forecasts = _forecasts.GetForecasts(cityName);
 
-            if (forecasts.Count > 0)
-            {
-                var firstOrDefault = forecasts.Values.FirstOrDefault();
-                if (firstOrDefault != null)
-                    AddCityInCookie(firstOrDefault.Id , cityName);
-            }
+            _cookie.Update(cityName);
 
             return forecasts;
-        }
-
-        private void AddCityInCookie(string id, string cityName)
-        {
-            var citiesCookie = Request.Cookies["cities"] ?? new HttpCookie("cities");
-            citiesCookie[id] = cityName;
-            citiesCookie.Expires = DateTime.Now.AddDays(1);
-            Response.Cookies.Add(citiesCookie);
         }
 
     }

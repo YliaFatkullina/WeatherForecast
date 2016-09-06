@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Web;
 using System.Web.Mvc;
 using MyWeatherForecast.Services;
 using Ninject;
@@ -30,6 +31,7 @@ namespace MyWeatherForecast.Infrastructure
         {
             _kernel.Bind<IForecasts>().To<Forecasts>();
             _kernel.Bind<IWeatherService>().To<WeatherService>();
+            _kernel.Bind<ICookieManager>().To<ViewedCity>().WithConstructorArgument("context", ninjectContext => HttpContext.Current);
         }
     }
 }
