@@ -32,7 +32,7 @@ namespace MyWeatherForecast.Services
             return GetForecastInternal(_url);
         }
 
-        public static string FirstLetterToUpper(string str)
+        private static string FirstLetterToUpper(string str)
         {
             if (str.Length > 0)
             {
